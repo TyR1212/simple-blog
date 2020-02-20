@@ -1,0 +1,5 @@
+.vs/
+BlogAndDatabase/obj
+BlogLibrary/bin
+BlogLibrary/obj
+*.exe
