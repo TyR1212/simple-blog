@@ -11,7 +11,6 @@ namespace BlogAndDatabase
         public Login()
         {
             InitializeComponent();
-            //MessageBox.Show(System.Environment.CurrentDirectory);
             usernameTextBox.Focus();
         }
 

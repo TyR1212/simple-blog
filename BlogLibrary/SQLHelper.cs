@@ -11,7 +11,8 @@ namespace BlogAndDatabase
     public class SQLHelper
     {
         private const string DB_NAME = "Blog_DB_Access";
-        private const string DB_ERROR = "ERROR: An error occured when connecting to the database.";
+        private const string DB_ERROR = "ERROR: An error occured when connecting to the database.\n\n" +
+                                        "Have you installed the Access Database Engine (32-bit)?";
 
         //function that uses Dapper to fetch data from the database
         private static List<T> Fetch<T>(string query)
