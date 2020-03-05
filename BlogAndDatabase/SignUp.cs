@@ -56,7 +56,7 @@ namespace BlogAndDatabase
         {
             MessageBox.Show("Username must be at least 4 characters long and must contain at least 1 letter.\n" +
                     "Password must be at least 8 characters long and must conatin at least 4 letters and 1 number.\n" +
-                    "Plain text only.\nSpaces not allowed.");
+                    "Plain text only.\nSpaces and single quotes not allowed.");
         }
 
         private void cancelLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

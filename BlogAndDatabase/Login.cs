@@ -16,17 +16,25 @@ namespace BlogAndDatabase
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            bool loginSuccessful = userCont.AttemptLogin(new User { Username = usernameTextBox.Text, Password = passwordTextBox.Text});
+            User loginUser = new User { Username = usernameTextBox.Text, Password = passwordTextBox.Text };
+            bool credentialsAreValid = userCont.ValidateCredentials(loginUser);
+            bool loginSuccessful = false;
 
-            if (loginSuccessful)
+            if (credentialsAreValid)
             {
-                currentUsername = usernameTextBox.Text;
+                loginSuccessful = userCont.AttemptLogin(loginUser);
 
-                Dashboard dashboardWindow = new Dashboard(currentUsername);
-                dashboardWindow.Show();
-                Hide();
+                if (loginSuccessful)
+                {
+                    currentUsername = usernameTextBox.Text;
+
+                    Dashboard dashboardWindow = new Dashboard(currentUsername);
+                    dashboardWindow.Show();
+                    Hide();
+                }
             }
-            else
+
+            if (!credentialsAreValid || !loginSuccessful)
             {
                 ShowInvalidLoginError();
                 passwordTextBox.Text = "";

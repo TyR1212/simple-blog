@@ -32,9 +32,10 @@ namespace BlogAndDatabase
                 return false;
         }
 
+
         private bool ValidateUsername(string username)
         {
-            if (ContainsUnicode(username) || username.Contains(' '))
+            if (ContainsUnicode(username) || username.Contains(' ') || username.Contains('\''))
                 return false;
 
             if (username.Length >= 4 && GetNumOfLetters(username) >= 1)
@@ -45,7 +46,7 @@ namespace BlogAndDatabase
 
         private bool ValidatePassword(string password)
         {
-            if (ContainsUnicode(password) || password.Contains(' '))
+            if (ContainsUnicode(password) || password.Contains(' ') || password.Contains('\''))
                 return false;
 
             if (password.Length >= 8 && GetNumOfLetters(password) >= 4 && GetNumOfDigits(password) >= 1)

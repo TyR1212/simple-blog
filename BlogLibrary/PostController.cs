@@ -19,10 +19,19 @@ namespace BlogAndDatabase
 
             return postsString.ToString();
         }
-        
+
         public void PostMessage(Post post)
         {
             post.PostContent = post.PostContent.TrimEnd();
+
+            //sanitize single quotes
+            if (post.PostContent.Contains("'"))
+                for (int i = 0; i < post.PostContent.Length; i++)
+                    if (post.PostContent[i] == '\'')
+                    {
+                        post.PostContent = post.PostContent.Insert(i, "'");
+                        i++;
+                    }
 
             SQLHelper.AddNewPost(post);
         }

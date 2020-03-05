@@ -17,6 +17,8 @@ namespace BlogAndDatabase
         //function that uses Dapper to fetch data from the database
         private static List<T> Fetch<T>(string query)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 IDbConnection connection = new System.Data.OleDb.OleDbConnection(ConfigurationManager.ConnectionStrings[DB_NAME].ConnectionString);
@@ -35,12 +37,16 @@ namespace BlogAndDatabase
                 Environment.Exit(1);
             }
 
+            Cursor.Current = Cursors.Default;
+
             return null;
         }
 
         //function that uses Dapper to send data to the database
         private static void Send(string query)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 IDbConnection connection = new System.Data.OleDb.OleDbConnection(ConfigurationManager.ConnectionStrings[DB_NAME].ConnectionString);
@@ -55,7 +61,8 @@ namespace BlogAndDatabase
                 MessageBox.Show(DB_ERROR);
                 Environment.Exit(1);
             }
-            
+
+            Cursor.Current = Cursors.Default;
         }
 
         public static bool ValidateUserExists(User user)
@@ -65,22 +72,22 @@ namespace BlogAndDatabase
             //check for case sensitivity
             return users.Count.Equals(1) && user.Username.Equals(users[0].Username) && user.Password.Equals(users[0].Password);
         }
-        
+
         public static bool ValidateUniqueUsername(string username)
         {
             List<User> users = Fetch<User>($"SELECT * FROM Users WHERE Username = '{username}'");
 
             return users.Count.Equals(0);
         }
-        
+
         public static void AddNewUser(User user)
         {
             Send($"INSERT INTO Users ([Username], [Password]) VALUES ('{user.Username}', '{user.Password}')");
-        }        
+        }
 
         public static List<Post> GetTop100Posts()
         {
-            List<Post> posts = Fetch<Post>("SELECT TOP 100 * FROM Posts");
+            List<Post> posts = Fetch<Post>("SELECT TOP 100 * FROM Posts ORDER BY PostDate ASC");
 
             return posts;
         }
